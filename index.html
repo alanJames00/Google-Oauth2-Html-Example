@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-signin-client_id">
+	<title>Google sign in</title>
+</head>
+
+<body>
+
+
+	<html>
+
+	<body>
+		<div id="g_id_onload" data-client_id="<GOOGLE_OAUTH_CLIENT_ID>"
+			data-callback="handleToken" data-auto_prompt="false">
+		</div>
+		<div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+			data-shape="rectangular" data-logo_alignment="left">
+		</div>
+
+
+		<script>
+			async function handleToken(response) {
+				console.log(response);
+
+				const idToken = response.credential;
+				console.log(idToken);
+				// Send the id-token to your backend server for server-side validation
+				const resp = await fetch('https://auth.your_server/oauth/google', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ idToken })
+				});
+
+				const data = await resp.json();
+				console.log(data); // 
+			}
+		</script>
+
+		<script src="https://accounts.google.com/gsi/client" async></script>
+
+		<body>
+
+	</html>
+
+
+
+</body>
+
+</html>
